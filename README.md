@@ -1,0 +1,1 @@
+-- These SQL queries were downloaded from Google BigQuery after the completion of my case study analyzing user behavior for a bike rental company.
