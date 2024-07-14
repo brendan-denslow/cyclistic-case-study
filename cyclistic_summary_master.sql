@@ -10,19 +10,7 @@ SELECT
   MAX(station_distance) AS max_station_distance,
   MIN(station_distance) AS min_station_distance,
   COUNT(ride_id) AS ride_count,
-  COUNT(CASE WHEN start_station_id = end_station_id THEN 1 END) AS round_trip_count,
-  COUNT(CASE WHEN start_station_id != end_station_id THEN 1 END) AS one_way_trip_count,
-  COUNT(CASE WHEN start_station_id IS NULL OR end_station_id IS NULL THEN 1 END) AS unclassified_trip_count,
   -- Below SELECT statements are for debugging
-  COUNT(CASE WHEN start_station_id = end_station_id THEN 1 END) 
-  + COUNT(CASE WHEN start_station_id != end_station_id THEN 1 END) 
-  + COUNT(CASE WHEN start_station_id IS NULL OR end_station_id IS NULL THEN 1 END) AS CHECK_ride_count,
-  -- Sums round trips, one-way trips, and unclassified trips
-  COUNT(CASE WHEN start_station_id = end_station_id THEN 1 END) 
-  + COUNT(CASE WHEN start_station_id != end_station_id THEN 1 END) 
-  + COUNT(CASE WHEN start_station_id IS NULL OR end_station_id IS NULL THEN 1 END) 
-  = COUNT(ride_id) AS CHECK_ride_count_BOOL, 
-  -- Checks if the sum of round trips, one-way trips, and unclassified trips are the same as total trips
   COUNT(CASE WHEN ride_length < 0 THEN 1 END) AS ERROR_ride_length
   -- Checks for negatives in ride length values
 FROM `case-studies-428602.cyclistic_bike_data.2023_07-2024_06_trips_cleaned`
