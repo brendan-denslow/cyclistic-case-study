@@ -1,6 +1,9 @@
 -- Add calculated fields and sort raw data by ride date-time
 SELECT *,
-  ended_at - started_at AS ride_length,
+  IF(started_at < ended_at, 
+       TIMESTAMP_DIFF(ended_at, started_at, SECOND), 
+       TIMESTAMP_DIFF(started_at, ended_at, SECOND)) 
+    AS ride_length,
   FORMAT_DATE('%H', started_at) AS ride_hour,
   FORMAT_DATE('%A', started_at) AS day_of_week,
   CONCAT(FORMAT_DATE('%b', started_at), " ", FORMAT_DATE('%G', started_at)) AS month,
